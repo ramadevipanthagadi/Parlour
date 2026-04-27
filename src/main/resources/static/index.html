@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome toBeauty Parlour</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #ffe6f0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #cc0066;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            padding: 10px;
+            background: #ff3399;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #cc0066;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Welcome to SRS Beauty Parlour Booking</h1>
+
+<div class="box">
+
+    <h3>Book Appointment</h3>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <input type="text" id="mobile" placeholder="Enter mobile number">
+
+    <select id="service">
+        <option>Facial</option>
+        <option>Haircut</option>
+        <option>Makeup</option>
+        <option>Hair Spa</option>
+    </select>
+
+    <button onclick="book()">Submit Booking</button>
+
+</div>
+
+<script>
+function book() {
+
+    let data = {
+        name: document.getElementById("name").value,
+        mobile: document.getElementById("mobile").value,
+        service: document.getElementById("service").value
+    };
+
+    fetch("http://localhost:8080/book", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert(result);
+    })
+    .catch(error => {
+        alert("Error: " + error);
+    });
+}
+</script>
+</body>
+</html>
